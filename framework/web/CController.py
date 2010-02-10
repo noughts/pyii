@@ -1,14 +1,25 @@
 ﻿import os
 import sys
+import logging
+
 from google.appengine.ext.webapp import template
 from pyii.framework.web.CBaseController import CBaseController
 
 
 class CController( CBaseController ):
 	
+	__name = "";
+
+	def __init__( self, name ):
+		self.__name = name;
+		return;
+
+
+	
 	# view ファイルのパスを返す
 	def getViewFile( self, viewName ):
-		path = os.path.abspath( "../protected/views/" + viewName );
+		path = os.path.abspath( "../protected/views/"+ self.__name +"/"+ viewName );
+		logging.info( path );
 		return path;
 		
 	

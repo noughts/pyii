@@ -1,10 +1,14 @@
-﻿from google.appengine.ext import webapp
+﻿import logging
+from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
 
 class MainHandler(webapp.RequestHandler):
 
 	def get( self, requestUri ):
+		
+		logging.getLogger().setLevel( logging.DEBUG )
+		
 		self.response.out.write( 'Hello world!' + requestUri )
 		
 		# appname.com/ 以降についてきた文字列を分解
@@ -29,7 +33,7 @@ class MainHandler(webapp.RequestHandler):
 		file = __import__( "protected.controllers", globals(), locals(), [controllerClassName] )
 		klass = getattr( file, controllerClassName )
 		constructorFunction = getattr( klass, controllerClassName )
-		controller = constructorFunction()
+		controller = constructorFunction( controllerName.lower() )
 		
 		# Controller の action 実行
 		try:
