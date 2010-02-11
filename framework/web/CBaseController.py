@@ -1,7 +1,12 @@
-﻿class CBaseController:
+﻿import logging
+from google.appengine.ext.webapp import template
+from pyii.Pyii import Pyii
 
-	def renderFile( self, view, data=None ):
-		print "self"
+
+class CBaseController:
+
+	def renderFile( self, viewFile, data=None ):
+		Pyii.out.write( template.render( viewFile, data ) );
 	
 	
 	

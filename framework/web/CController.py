@@ -2,13 +2,13 @@
 import sys
 import logging
 
-from google.appengine.ext.webapp import template
 from pyii.framework.web.CBaseController import CBaseController
 
 
 class CController( CBaseController ):
 	
 	__name = "";
+	layout = "main";
 
 	def __init__( self, name ):
 		self.__name = name;
@@ -19,13 +19,30 @@ class CController( CBaseController ):
 	# view ファイルのパスを返す
 	def getViewFile( self, viewName ):
 		path = os.path.abspath( "../protected/views/"+ self.__name +"/"+ viewName );
-		logging.info( path );
+		#logging.info( path );
 		return path;
+		
+	# layout ファイルのパスを返す
+	def getLayoutFile( self, layoutName ):
+		path = os.path.abspath( "../protected/views/layout/"+ layoutName + ".html" );
+		#logging.debug( path );
+		return path;
+		
 		
 	
 	def renderPartial( self, view, data=None ):
 		viewFile = self.getViewFile( view );
-		print template.render( viewFile, data )
+		self.renderFile( viewFile, data );
+		
+	
+	
+	def renderText( self, text ):
+		layoutFile = self.getLayoutFile( self.layout );
+		params = {
+			'content': text,
+		}
+		self.renderFile( layoutFile, params );
+	
 	
 	
 	def render( self, view, data=None ):
@@ -34,5 +51,3 @@ class CController( CBaseController ):
 	
 	
 	
-	def renderText( self, text ):
-		print text;

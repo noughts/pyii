@@ -1,17 +1,20 @@
 ﻿import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
+from pyii.Pyii import Pyii
 
-
-class MainHandler(webapp.RequestHandler):
+class MainHandler( webapp.RequestHandler ):
 
 	def get( self, requestUri ):
+		logging.getLogger().setLevel( logging.DEBUG );
 		
-		logging.getLogger().setLevel( logging.DEBUG )
+		# ブラウザに正常にレンダリングするために、static prop に設定
+		Pyii.out = self.response.out;
+		print self.response;		
 		
-		self.response.out.write( 'Hello world!' + requestUri )
+		#self.response.out.write( 'Hello world!' + requestUri )
 		
-		# appname.com/ 以降についてきた文字列を分解
+		# myapp.appspot.com/ 以降についてきた文字列を分解
 		if requestUri == "":
 			controllerName = "Site"
 			actionName = "index"
@@ -25,8 +28,8 @@ class MainHandler(webapp.RequestHandler):
 					actionName = "index"
 				else:
 					actionName = ary[1]
-		controllerName = controllerName.capitalize()
-		actionName = actionName.capitalize()
+		controllerName = controllerName.capitalize();
+		actionName = actionName[0].capitalize() + actionName[1:100]; # actionName の先頭だけ大文字に。
 		
 		# Controller のインスタンス化
 		controllerClassName = controllerName + "Controller";
@@ -37,11 +40,11 @@ class MainHandler(webapp.RequestHandler):
 		
 		# Controller の action 実行
 		try:
-			actionFunction = getattr( controller, "action" + actionName )
+			actionFunction = getattr( controller, "action" + actionName );
 		except AttributeError:
-			print "can' find {controllerClassName} action"
+			print "can' find "+ controllerClassName +".action"+ actionName;
 		else:
-			actionFunction()
+			actionFunction();
 
 
 

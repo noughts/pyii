@@ -1,6 +1,6 @@
-﻿print "imported Pyii"
-
-class Pyii:
-
+﻿class Pyii:
+	
+	out = None;
+	
 	def __init__( self ):
 		print "constructor"
