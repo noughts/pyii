@@ -18,14 +18,12 @@ class CController( CBaseController ):
 	
 	# view ファイルのパスを返す
 	def getViewFile( self, viewName ):
-		path = os.path.abspath( "../protected/views/"+ self.__name +"/"+ viewName );
-		#logging.info( path );
+		path = os.path.abspath( "../protected/views/"+ self.__name +"/"+ viewName +".html" );
 		return path;
 		
 	# layout ファイルのパスを返す
 	def getLayoutFile( self, layoutName ):
-		path = os.path.abspath( "../protected/views/layout/"+ layoutName + ".html" );
-		#logging.debug( path );
+		path = os.path.abspath( "../protected/views/layout/"+ layoutName +".html" );
 		return path;
 		
 		

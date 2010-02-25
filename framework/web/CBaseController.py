@@ -4,9 +4,12 @@ from pyii.Pyii import Pyii
 
 
 class CBaseController:
-
+	
+	def __init__( self ):
+		logging.info( "aaaaaaaaaaaaa" );
+	
 	def renderFile( self, viewFile, data=None ):
-		Pyii.out.write( template.render( viewFile, data ) );
+		Pyii.write( template.render( viewFile, data ) );
 	
 	
 	

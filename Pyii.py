@@ -1,6 +1,14 @@
 ﻿class Pyii:
 	
-	out = None;
+	MainHandler = None;
 	
 	def __init__( self ):
 		print "constructor"
+	
+	
+	
+	
+	# ブラウザに表示
+	@staticmethod
+	def write( content ):
+		Pyii.MainHandler.response.out.write( content );
