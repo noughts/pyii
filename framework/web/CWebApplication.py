@@ -6,7 +6,7 @@ class CWebApplication( CApplication ):
 	
 	
 	def __init__( self ):
-		CApplication.__init__(self);
+		CApplication.__init__( self );
 		self.catchAllRequest = None;
 	
 	

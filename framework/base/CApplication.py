@@ -17,6 +17,9 @@ class CApplication( CModule ):
 	
 	def getUrlManager( self ):
 		return self.getComponent( "urlManager" );
+	def getRequest( self ):
+		return self.getComponent( "request" );
+	
 	
 	
 	def registerCoreComponents( self ):
