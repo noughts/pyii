@@ -3,13 +3,10 @@ from pyii.Pyii import Pyii;
 
 class CWebApplication( CApplication ):
 	
-	
-	
-	
 	def __init__( self ):
 		self.defaultController = "site";
 		self.catchAllRequest = None;
-		self.
+		self.controllerMap = {};
 		
 		CApplication.__init__( self );
 	
@@ -25,11 +22,8 @@ class CWebApplication( CApplication ):
 	
 	def runController( self, route ):
 		self.createController( route );
-
-
-
-
-
+	
+	
 	def createController( self, route, owner=None ):
 		if( owner is None ):
 			owner = self;
@@ -45,13 +39,16 @@ class CWebApplication( CApplication ):
 			id = route[0:pos];
 			route = route[pos+1:len(route)];
 			if( basePath is None ):
-				if( id in owner.controllerMap	 ):
-		
-		
-		
-		
-		
-		
+				if( id in owner.controllerMap ):
+					if( owner==self ):
+						_r1 = Pyii.createComponent( owner.controllerMap[id], id, None );
+					else:
+						_r1 = Pyii.createComponent( owner.controllerMap[id], id, owner );
+						_r2 = self.parseActionParams( route );
+					return [_r1, _r2];
+				
+				module = owner.getControllerPath();
+				if( module != ):
 		
 		
 		
