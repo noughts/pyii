@@ -4,6 +4,9 @@ class CApplication( CModule ):
 	
 	
 	def __init__( self ):
+		# メンバ変数初期化
+		self._basePath = None;
+		
 		CModule.__init__(self);
 		self.registerCoreComponents();
 	
@@ -19,6 +22,10 @@ class CApplication( CModule ):
 		return self.getComponent( "urlManager" );
 	def getRequest( self ):
 		return self.getComponent( "request" );
+	
+	
+	def getBasePath( self ):
+		return self._basePath;
 	
 	
 	

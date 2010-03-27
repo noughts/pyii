@@ -1,12 +1,18 @@
 ﻿from pyii.framework.base.CApplication import CApplication;
 from pyii.Pyii import Pyii;
 
+DIRECTORY_SEPARATOR = "/";
+
 class CWebApplication( CApplication ):
 	
+	
+	
 	def __init__( self ):
+		# メンバ変数初期化
 		self.defaultController = "site";
 		self.catchAllRequest = None;
 		self.controllerMap = {};
+		self._controllerPath = None;
 		
 		CApplication.__init__( self );
 	
@@ -32,6 +38,7 @@ class CWebApplication( CApplication ):
 		if( route=="" ):
 			route = self.defaultController;
 		
+		basePath = None;
 		caseSensitive = self.getUrlManager().caseSensitive;		
 		route += "/";
 		while( route.find("/") >= 0 ):
@@ -48,8 +55,20 @@ class CWebApplication( CApplication ):
 					return [_r1, _r2];
 				
 				module = owner.getControllerPath();
-				if( module != ):
+				if( module is not None ):
+					return self.createController( route, module );
 		
+		
+		
+		
+		
+	def getControllerPath( self ):
+		if( self._controllerPath is not None ):
+			return self._controllerPath;
+		else:
+			self._controllerPath = self.getBasePath() + DIRECTORY_SEPARATOR + "controllers";
+			return self._controllerPath;
+
 		
 		
 		
